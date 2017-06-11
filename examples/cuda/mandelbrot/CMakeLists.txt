@@ -31,6 +31,28 @@ add_hpx_pseudo_dependencies(examples.cuda
 
 target_link_libraries(mandelbrot_cuda_exe ${PNG_LIBRARIES})
 
+set(sourcesCUDA
+	mandelbrotCUDA.cu
+)
+
+# add example executable
+add_hpx_executable(mandelbrotCUDA
+                   SOURCES ${sourcesCUDA}
+                   COMPONENT_DEPENDENCIES iostreams cuda
+                   FOLDER "Examples/CUDA/mandelbrot")
+
+# add a custom target for this example
+add_hpx_pseudo_target(examples.cuda.mandelbrotCUDA)
+
+# make pseudo-targets depend on master pseudo-target
+add_hpx_pseudo_dependencies(examples.cuda
+                            examples.cuda.mandelbrotCUDA)
+
+target_link_libraries(mandelbrot_cuda_exe ${PNG_LIBRARIES})
+
+
+
+
 endif(PNG_FOUND)
 
 
