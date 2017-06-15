@@ -4,12 +4,7 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <cuda.h>
-
-#include <hpx/hpx_main.hpp>
-#include <hpx/include/iostreams.hpp>
-#include <hpx/lcos/future.hpp>
-#include <hpx/hpx_main.hpp>
-
+#include <iostream>
 //for writing image
 //#include "examples/opencl/mandelbrot/pngwriter.cpp"
 
@@ -97,19 +92,21 @@ int main(int argc, char*argv[]) {
 	cudaMemcpy(image_host, image_device, bytes, cudaMemcpyDeviceToHost);
 
 	//write images to file
-	std::shared_ptr<std::vector<char>> img_data;
+	//std::shared_ptr<std::vector<char>> img_data;
 
 	/*
 	 * Save result to png
 	 */
 
 	//write images to file
+	/*
 	std::shared_ptr<std::vector<char>> img_data;
 
 	img_data = std::make_shared <std::vector <char> >
 		(image_host, image_host+bytes);
 
 	save_png(image_host, width, height, "Mandelbrot_img.png");
+	*/
 
 	/*
 	 * Free
