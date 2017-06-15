@@ -81,10 +81,26 @@ int main(int argc, char*argv[]) {
 	grid.z = 1;
 
 	/*
+	* Events to measure kernel performance
+	*/
+	cudaEvent_t timerStart, timerStop;
+	cudaEventCreate(&timerStart);
+	cudaEventCreate(&timerStop);
+
+	/*
 	 * Kernel launch
 	 */
+	cudaEventRecord(timerStart);
 	mandelbrot<char><<<grid, block>>>(image_device, &width, &height);
-	cudaDeviceSynchronize();
+	cudaEventRecord(timerStop);
+
+	//Synchronize device with timerStop event
+	cudaEventSynchronize(timerStop);
+
+	float timeElapsed = 0;
+	cudaEventElapsedTime(&timeElapsed, timerStart, timerStop);
+
+	std::cout<<"Time Elapsed in kernal execution: "<<timeElapsed;
 
 	/*
 	 * Copy result back
