@@ -12,3 +12,12 @@
 
 #include <hpxcl/cuda.hpp>
 
+#define COMPARE_RESULT( result_data, correct_result )                           \
+{                                                                               \
+    auto lhs = result_data;                                                     \
+    auto rhs = correct_result;                                                  \
+    HPX_TEST_EQ(lhs.size(), rhs.size());                                        \
+    std::string correct_string = to_string(rhs);                                \
+    std::string result_string = to_string(lhs);                                 \
+    HPX_TEST_EQ(correct_string, result_string);                                 \
+}
