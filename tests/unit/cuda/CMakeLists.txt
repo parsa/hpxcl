@@ -12,7 +12,7 @@ foreach(test ${tests})
   set(sources
       ${test}.cpp)
 
-  set(${test}_FLAGS ${${test}_FLAGS} DEPENDENCIES ${CUDA_CUDA_LIBRARY} ${CUDA_CUDART_LIBRARY})
+  set(${test}_FLAGS ${${test}_FLAGS} DEPENDENCIES cuda opencl_component)
 
   source_group("Source Files" FILES ${sources})
 

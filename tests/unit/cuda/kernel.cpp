@@ -37,7 +37,7 @@ static const char hello_world_src[] =
 		"			out[index] = in[index];																	   \n"
 		"}                                             							                               \n";
 
-static const char hello_world_src[] =
+static const char invalid_hello_world_src[] =
 		"                                                                                                        "
 		"extern \"C\"  __global__ void hello_world(char *in, char *out, int length){ 	   					   \n"
 		"		int index = blockIdx.x * blockDim.x + threadIdx.x;											   \n"
@@ -54,7 +54,7 @@ static void run_kernel (hpx::cuda::program program) {
 	
 	int len = DATASIZE;
 	char *out;
-	out = malloc (DATASIZE);
+	out = (char*) malloc (DATASIZE);
 
 	hpx::cuda::buffer inBuffer = cudaDevice.create_buffer(DATASIZE);
 	hpx::cuda::buffer outBuffer = cudaDevice.create_buffer(DATASIZE);
@@ -101,7 +101,7 @@ static void run_kernel (hpx::cuda::program program) {
 
 	//run the program on the device
 	{
-		auto future = prog.run(args, "hello_world", grid, block, args);
+		auto future = program.run(args, "hello_world", grid, block, args);
 		future.get();		
 	}
 
@@ -114,15 +114,17 @@ static void run_kernel (hpx::cuda::program program) {
 * and kernel run
 *
 */
-static void test_program (hpx::cuda::device cudaDevice){
+static void cuda_test(hpx::cuda::device cudaDevice, hpx::cuda::device remote_device){
 
 	//Standard test for program compilation and build
 	{
 		//Test if a program can be created
 		hpx::cuda::program program = cudaDevice.create_program_with_source(hello_world_src);
-
+		
+		std::vector<std::string> flags;
+		
 		//Test if the program can be compiled
-		program.build(NULL, "hello_world");
+		program.build(flags, "hello_world");
 
 		//Running the kernel
 
@@ -204,7 +206,7 @@ static void test_program (hpx::cuda::device cudaDevice){
 	//Test invalid error detection
 	{
 		//Test if a program can be created
-		hpx::cuda::program program = cudaDevice.create_program_with_source(hello_world_src);
+		hpx::cuda::program program = cudaDevice.create_program_with_source(invalid_hello_world_src);
 
 		//Compile with the kernal
 		std::vector<std::string> flags;
