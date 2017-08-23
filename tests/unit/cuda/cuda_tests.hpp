@@ -20,4 +20,9 @@
     std::string correct_string = to_string(rhs);                                \
     std::string result_string = to_string(lhs);                                 \
     HPX_TEST_EQ(correct_string, result_string);                                 \
-}
+}																				\
+
+#define COMPARE_STRING_RESULT (lhs, rhs)										\
+{																				\
+	HPX_TEST_EQ(lhs,rhs);														\
+}																				\

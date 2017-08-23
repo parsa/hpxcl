@@ -28,7 +28,7 @@ static void cuda_test(hpx::cuda::device local_device, hpx::cuda::device remote_d
 
 	//Test if the buffer write works with no offset
 	{
-		auto data_write_test = local_buffer.enqueue_write(0, sizof(bufferData), bufferData);
+		auto data_write_test = local_buffer.enqueue_write(0, sizeof(bufferData), bufferData);
 		data_write_test.get();
 	}
 
@@ -52,7 +52,7 @@ static void cuda_test(hpx::cuda::device local_device, hpx::cuda::device remote_d
 
 	// Test local continuity
 	{
-		auto write_data = local_buffer.enqueue_write(0, sizof(bufferData), bufferData);
+		auto write_data = local_buffer.enqueue_write(0, sizeof(bufferData), bufferData);
 		auto future2 = write_data.then(
             [](hpx::future<void> fut){
                 return true;   
