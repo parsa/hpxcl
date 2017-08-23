@@ -28,12 +28,7 @@ static void cuda_test(hpx::cuda::device, hpx::cuda::device);
     std::string correct_string = to_string(rhs);                                \
     std::string result_string = to_string(lhs);                                 \
     HPX_TEST_EQ(correct_string, result_string);                                 \
-}																				
-
-#define COMPARE_STRING_RESULT (lhs, rhs)										\
-{																				\
-	HPX_TEST_EQ(lhs,rhs);														\
-}																				
+}																																							
 
 static std::vector<hpx::cuda::device> init(variables_map & vm)
 {

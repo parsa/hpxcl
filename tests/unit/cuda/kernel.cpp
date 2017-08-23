@@ -50,7 +50,7 @@ static const char invalid_hello_world_src[] =
 * Define new buffers and run the kernel and verify execution
 *
 */
-static void run_kernel (hpx::cuda::program program) {
+static void run_kernel (hpx::cuda::program program, hpx::cuda::device cudaDevice) {
 	
 	int len = DATASIZE;
 	char *out;
