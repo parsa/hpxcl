@@ -41,7 +41,7 @@ static void print_testdevice_info(hpx::cuda::device & cudaDevice,
                                 << hpx::endl;
     hpx::cout << "Device Major Architecture: " << cudaDevice.get_device_architecture_major().get() << hpx::endl;
 	hpx::cout << "Device Minor Architecture: " << cudaDevice.get_device_architecture_minor().get() << hpx::endl;
-    hpx::cout << "Id:       " << get_device_id().get()
+    hpx::cout << "Id:       " << cudaDevice.get_device_id().get()
                                 << hpx::endl;
 
     // Test for valid device client
