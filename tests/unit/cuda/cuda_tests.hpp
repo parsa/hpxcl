@@ -30,6 +30,28 @@ static void cuda_test(hpx::cuda::device, hpx::cuda::device);
     HPX_TEST_EQ(correct_string, result_string);                                 \
 }																																							
 
+static void print_testdevice_info(hpx::cuda::device & cudaDevice,
+                                  std::size_t device_id,
+                                  std::size_t num_devices){
+
+    cudaDevice.get_cuda_info();
+	
+    // Write Info Code
+    hpx::cout << "Device ID:  " << device_id << " / " << num_devices
+                                << hpx::endl;
+    hpx::cout << "Device Major Architecture: " << cudaDevice.get_device_architecture_major().get() << hpx::endl;
+	hpx::cout << "Device Minor Architecture: " << cudaDevice.get_device_architecture_minor().get() << hpx::endl;
+    hpx::cout << "Id:       " << get_device_id().get()
+                                << hpx::endl;
+
+    // Test for valid device client
+    HPX_TEST(cudaDevice.get_device_id().get());
+
+
+}
+
+
+
 static std::vector<hpx::cuda::device> init(variables_map & vm)
 {
 
@@ -59,9 +81,9 @@ static std::vector<hpx::cuda::device> init(variables_map & vm)
 
     // Print info
     hpx::cout << "Local device:" << hpx::endl;
-    //print_testdevice_info(local_device, device_id, local_devices.size());
+    print_testdevice_info(local_device, device_id, local_devices.size());
     hpx::cout << "Remote device:" << hpx::endl;
-    //print_testdevice_info(remote_device, device_id, remote_devices.size());
+    print_testdevice_info(remote_device, device_id, remote_devices.size());
 
     // return the devices
     std::vector<hpx::cuda::device> devices;
