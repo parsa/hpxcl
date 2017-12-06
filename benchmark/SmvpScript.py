@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 
 if(len(sys.argv) != 3):
     print("Usage #node_name #retry_attempts")
-	sys.exit()
+    sys.exit()
 
 ############Parameters for varying m#######
 m_value = 10240
